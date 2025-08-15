@@ -11,7 +11,9 @@ list(
   src/utils.cpp
   src/utils.h
   src/watcher.cpp
-  src/watcher.h)
+  src/watcher.h
+  src/Clipboard.cpp
+  src/Clipboard.h)
 
 set(_CPP_SOURCE_FILES
     ${_CPP_SOURCE_FILES}

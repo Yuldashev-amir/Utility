@@ -4,19 +4,31 @@
 <context>
     <name>Main</name>
     <message>
-        <location filename="../../Main.qml" line="9"/>
         <source>hello_world</source>
-        <translation>Привет Мир!</translation>
+        <translation type="vanished">Утилита</translation>
     </message>
     <message>
-        <location filename="../../Main.qml" line="133"/>
         <source>utils</source>
-        <translation>Утилиты</translation>
+        <translation type="vanished">Утилиты</translation>
     </message>
     <message>
-        <location filename="../../Main.qml" line="142"/>
+        <location filename="../../Main.qml" line="10"/>
+        <source>Utility</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../Main.qml" line="28"/>
+        <source>Enter mac-address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../Main.qml" line="44"/>
+        <source>Input</source>
+        <translation type="unfinished">Ввод</translation>
+    </message>
+    <message>
         <source>reset</source>
-        <translation>Сбросить</translation>
+        <translation type="vanished">Сбросить</translation>
     </message>
     <message>
         <source>Translate</source>

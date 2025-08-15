@@ -5,210 +5,70 @@ import QtQuick.Layouts
 import Demo
 
 Window {
-  height: 480
-  title: qsTr("hello_world")
-  visible: true
-  width: 640
+    id: root
+    height: 480
+    title: qsTr("Utility")
+    visible: true
+    width: 640
 
-  Component.onCompleted: Qt.uiLanguage = "kk"
+    Component.onCompleted: Qt.uiLanguage = "ru"
 
-  Shortcut {
-    context: Qt.ApplicationShortcut
-    sequence: StandardKey.Quit
+    Column {
+        spacing: 10
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: parent.top
+        anchors.topMargin: 40
+        width: parent.width
+        height: parent.height
 
-    onActivated: Qt.quit()
-  }
-  Rectangle {
-    anchors.fill: parent
-    anchors.margins: parent.height / 4
-    color: "grey"
-
-    MouseArea {
-      anchors.fill: parent
-
-      onWheel: {
-        if (wheel.angleDelta.y > 0) {
-          Utils.count += 1;
-        } else {
-          Utils.count -= 1;
-        }
-      }
-    }
-    Image {
-      id: name
-
-      anchors.right: parent.right
-      anchors.rightMargin: height / 4
-      anchors.top: parent.top
-      anchors.topMargin: height / 4
-      height: parent.height / 4
-      opacity: 0.85
-      source: "qrc:/mchs-logo.png"
-      sourceSize.height: height
-    }
-    Text {
-      anchors.centerIn: parent
-      anchors.fill: parent
-      font: Fonts.dmX
-      horizontalAlignment: Qt.AlignHCenter
-      text: parseInt(Utils.count)
-      verticalAlignment: Qt.AlignVCenter
-
-      Component.onCompleted: {
-        font.pointSize = height / 2;
-      }
-    }
-    Rectangle {
-      anchors.bottom: parent.bottom
-      anchors.left: parent.left
-      color: "transparent"
-      height: parent.height / 4
-      width: parent.width / 4
-
-      Util {
-      }
-    }
-  }
-  RowLayout {
-    property var step: parent.height / 8
-
-    anchors.left: parent.left
-    anchors.leftMargin: step / 4
-    anchors.right: parent.right
-    anchors.rightMargin: step / 4
-    anchors.top: parent.top
-    anchors.topMargin: step / 4
-    height: step
-    spacing: step / 8
-
-    Button {
-      text: "-"
-
-      onClicked: {
-        Utils.count -= 1;
-      }
-      onPressAndHold: {
-        btnDecrementTimer.start();
-      }
-      onReleased: {
-        btnDecrementTimer.stop();
-      }
-
-      Timer {
-        id: btnDecrementTimer
-
-        interval: 50
-        repeat: true
-
-        onTriggered: {
-          Utils.count -= 1;
-        }
-      }
-    }
-    Button {
-      text: "+"
-
-      onClicked: {
-        Utils.count += 1;
-      }
-      onPressAndHold: {
-        btnIncrementTimer.start();
-      }
-      onReleased: {
-        btnIncrementTimer.stop();
-      }
-
-      Timer {
-        id: btnIncrementTimer
-
-        interval: 50
-        repeat: true
-
-        onTriggered: {
-          Utils.count += 1;
-        }
-      }
-    }
-    Button {
-      text: qsTr("utils")
-
-      onClicked: {
-        Watcher.getUtils();
-      }
-    }
-    Button {
-      id: resetBtn
-
-      text: qsTr("reset")
-
-      onClicked: {
-        Watcher.setCounter(0);
-      }
-    }
-    Rectangle {
-      Layout.fillWidth: true
-      Layout.preferredHeight: parent.height
-      color: "transparent"
-    }
-    TabBar {
-      id: tabBar
-
-      implicitHeight: resetBtn.height
-      implicitWidth: parent.width / 8
-
-      background: Rectangle {
-        color: "transparent"
-      }
-
-      // currentIndex: swipeView.currentIndex
-
-      TabButton {
-        text: "kk"
-
-        background: Rectangle {
-          color: tabBar.currentIndex == 0 ? "orange" : "yellow"
+        TextField {
+            id: input
+            height: parent.height / 10
+            width: parent.width / 3
+            text: qsTr("Enter mac-address")
+            placeholderText: "mac_addr: d0:9f:d9:41:aa:cb"
+            placeholderTextColor: "gray"
+            font.pixelSize: parent.width / 37
+            anchors.horizontalCenter: parent.horizontalCenter
         }
 
-        onClicked: {
-          Qt.uiLanguage = "kk";
-        }
-      }
-      TabButton {
-        text: "ru"
+        Button {
+            id: resetBtn
+            width: parent.width / 6
+            height: parent.height / 10
 
-        background: Rectangle {
-          color: tabBar.currentIndex == 1 ? "orange" : "yellow"
-        }
+            anchors.topMargin: 90
+            anchors.horizontalCenter: parent.horizontalCenter
+            hoverEnabled: true
+            Text {
+                text: qsTr("Input")
+                color: resetBtn.hovered ? "white" : "black"
+                anchors.centerIn: parent
+                font.bold: true
+                font.pixelSize: root.width / 37
+            }
+            background: Rectangle {
+                color: resetBtn.hovered ? "black" : "white"
+                radius: 8
+            }
 
-        onClicked: {
-          Qt.uiLanguage = "ru";
+            onClicked: {
+                inputRect.macAddress = input.text
+                console.log(inputRect.macAddress)
+                inputRect.visible = true
+                input.clear()
+            }
         }
-      }
-      TabButton {
-        text: "en"
-
-        background: Rectangle {
-          color: tabBar.currentIndex == 2 ? "orange" : "yellow"
+        InputPlace {
+            id: inputRect
+            width: parent.width
+            height: parent.height
+            visible: false
+            placeAddress: "365.46"
+            macAddress: "mac_addr: d0:9f:d9:41:aa:cb"
+            anchors.horizontalCenter: parent.horizontalCenter
         }
-
-        onClicked: {
-          Qt.uiLanguage = "en";
-        }
-      }
-    }
-    // Button {
-    //   text: qsTr("Translate")
-
-    //   onClicked: {
-    //     Qt.uiLanguage = Qt.uiLanguage === "ru" ? "en" : "ru";
-    //   }
-    // }
-  }
-  Connections {
-    function onCountChanged() {
-      console.log("Count changed");
     }
 
-    target: Utils
-  }
+    TabLanguage {}
 }

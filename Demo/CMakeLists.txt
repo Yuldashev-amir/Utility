@@ -6,7 +6,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(TARGET_NAME demo)
 set(MODULE_NAME Demo)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Quick Qml LinguistTools)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Quick Qml LinguistTools Network)
+find_package(Qt6 REQUIRED COMPONENTS Core)
 
 set(_CPP_SOURCE_FILES)
 set(_QML_SOURCES)
@@ -26,6 +27,8 @@ qt_standard_project_setup(REQUIRES 6.8 I18N_TRANSLATED_LANGUAGES ${LANGS})
 
 qt_add_executable(${TARGET_NAME} ${_CPP_SOURCE_FILES})
 
+
+target_link_libraries(demo PRIVATE Qt6::Core Qt6::Gui)
 set_source_files_properties(${_QML_SINGLETONS} PROPERTIES QT_QML_SINGLETON_TYPE
                                                           TRUE)
 qt_add_qml_module(
@@ -71,7 +74,7 @@ set(QML_INCLUDES ${CMAKE_CURRENT_SOURCE_DIR}/src)
 # Add includepaths
 target_include_directories(${TARGET_NAME} PRIVATE ${QML_INCLUDES})
 
-target_link_libraries(${TARGET_NAME} PRIVATE Qt6::Quick)
+target_link_libraries(${TARGET_NAME} PRIVATE Qt6::Quick Qt6::Network)
 
 include(GNUInstallDirs)
 install(
