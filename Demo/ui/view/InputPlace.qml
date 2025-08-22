@@ -4,6 +4,8 @@ import Clipboard
 
 Item {
     id: root
+    width: parent.width
+    height: parent.height
     property string macAddress: macAddress.text
     property string placeAddress: placeAddress.text
 
@@ -15,12 +17,17 @@ Item {
         color: "gray"
         radius: 8
         Column {
-            spacing: 5
+            spacing: 15
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.topMargin: 40
+            anchors.leftMargin: 20
             Row {
-                spacing: 8
+                spacing: 5
                 Text {
                     id: macAddress
                     text: root.macAddress
+                    font.pixelSize: 20
                 }
                 Button {
                     id: btnCopy
@@ -46,6 +53,7 @@ Item {
                 Text {
                     id: placeAddress
                     text: root.placeAddress
+                    font.pixelSize: 20
                 }
                 Button {
                     id: btnCopy2
